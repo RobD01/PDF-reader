@@ -1,54 +1,155 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+import MaxWidthWrapper from "../components/MaxWidthWrapper";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Button, buttonVariants } from "../components/ui/button";
+import Image from "next/image";
 
-export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  const isSupabaseConnected = canInitSupabaseClient();
-
+export default async function Home() {
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <DeployButton />
-          {isSupabaseConnected && <AuthButton />}
+    <>
+      <MaxWidthWrapper classname="mb-12 mt-28 sm:mt-4 flex flex-col items-center justify-center text-center">
+        <div
+          className="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden 
+      rounded-full border border-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all
+       hover:border-gray-300 hover:bg-white/50"
+        >
+          <p className="text-sm font-semibold text-gray-700">
+            {" "}
+            Quill is public
+          </p>
         </div>
-      </nav>
+        <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
+          Chat with your <span className="text-blue-600">documents</span> in
+          seconds
+        </h1>
+        <p className="mt-5 max-w-prose text-zinc-700 sm:text-lg">
+          Quill allows you to have conversations with any PDF document
+        </p>
 
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-        <Header />
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
+        <Link
+          className={buttonVariants({
+            size: "lg",
+            className: "mt-5",
+          })}
+          href="/dashboard"
+        >
+          Get Started <ArrowRight className="ml-2 size-5" />
+        </Link>
+      </MaxWidthWrapper>
+      {/* Value proposition */}
+      <div>
+        {/* Heading */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sml-top-80"
+        >
+          <div
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            }}
+            className="fixed left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem) sm:w-[72.1875rem]]"
+          />
+        </div>
+
+        {/* Dashboard Preview */}
+        <div>
+          <div className="mx-auto max-6-xl px-6  lg:px-8 mx-5">
+            <div className="mt-16 flow-root sm:mt-24">
+              <div className="rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+                <Image
+                  src="/dashboard-preview.jpg"
+                  width={1364}
+                  height={866}
+                  quality={100}
+                  alt="preview"
+                  className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* background bottom */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sml-top-80"
+        >
+          <div
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            }}
+            className="relative left-[calc(50%-13rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-36rem) sm:w-[72.1875rem]]"
+          />
+        </div>
       </div>
 
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
-      </footer>
-    </div>
+      {/* Feature */}
+      <div className="mx-auto mb-32 mt-16 max-w-5xl sm:mt-16">
+        <div className="mb-8 px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl sm:text-center">
+            <h2 className="my-2 font-bold text-4xl text-gray-900 sm:text-5xl">
+              Start chatting in minutes
+            </h2>
+            <p>Chatting to your PDF files has never been easier</p>
+          </div>
+        </div>
+
+        {/* steps */}
+        <ol className="my-8 space-y-4 p-8 md:flex md:space-x-12 md:space-y-0">
+          <li className="md:flex-1">
+            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 pl-4 md:border-l-0 md:pb-0 md:pl-0 md:pt-4">
+              <span className="text-sm font-medium text-blue-600">Step 1</span>
+              <div className="text-xl font-semibold">
+                Sign up for an account
+              </div>
+              <span className="mt-2 text-zinc-700">
+                Either starting out with a free plan or choose a{" "}
+                <Link
+                  href="/pricing"
+                  className="text-blue-700 underline underline-offset-2"
+                >
+                  pro plan
+                </Link>
+              </span>
+            </div>
+          </li>
+          <li className="md:flex-1">
+            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 pl-4 md:border-l-0 md:pb-0 md:pl-0 md:pt-4">
+              <span className="text-sm font-medium text-blue-600">Step 2</span>
+              <div className="text-xl font-semibold">Upload your PDF file</div>
+              <span className="mt-2 text-zinc-700">
+                We&apos;ll process your file and make it ready for you to chat
+                with
+              </span>
+            </div>
+          </li>
+          <li className="md:flex-1">
+            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 pl-4 md:border-l-0 md:pb-0 md:pl-0 md:pt-4">
+              <span className="text-sm font-medium text-blue-600">Step 2</span>
+              <div className="text-xl font-semibold">
+                Start asking questions
+              </div>
+              <span className="mt-2 text-zinc-700">It&apos;s that simple!</span>
+            </div>
+          </li>
+        </ol>
+        <div className="mx-auto max-6-xl px-6  lg:px-8 mx-5">
+          <div className="mt-16 flow-root sm:mt-24">
+            <div className="rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+              <Image
+                src="/file-upload-preview.jpg"
+                width={1419}
+                height={732}
+                quality={100}
+                alt="uploading"
+                className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
